@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const url = "https://api.openbrewerydb.org/breweries";
 var breweries = [{
   "id": 2,
@@ -327,7 +329,7 @@ class BreweriesApi {
 
   static checkBrewerieLoading() {
     if (!breweries) {
-      //Brwewries =  await $.getJSON(url);// eslint-disable-next-line
+      console.log(breweries);
     }
   }
 }
