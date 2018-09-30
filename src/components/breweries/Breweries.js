@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import TextInput from '../common/TextInput';
-
+import {Link} from 'react-router';
 
 class Breweries extends React.Component {
   constructor(props, context) {
@@ -51,8 +51,6 @@ class Breweries extends React.Component {
     return (
       <div>
         <h1>Breweries</h1>
-        {/*<input placeholder='name' onChange={this.onNameChange} value={this.state.filterName}></input>*/}
-        {/*<input placeholder='city' value={this.state.filterCity}></input>*/}
         <TextInput label="Name" onChange={this.onNameChange} name="Name" placeholder="Name"/>
         <TextInput label="City" onChange={this.onCityChange} name="City" placeholder="City"/>
 
@@ -67,12 +65,12 @@ class Breweries extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {this.state.breweries.map((brewerie) => {
+          {this.state.breweries.map((brewery) => {
             return (
               <tr>
-                <th>{brewerie.name}</th>
-                <th>{brewerie.city}</th>
-                <th>{brewerie.phone}</th>
+                <th><Link to={'/brewery/'+brewery.id}>{brewery.name}</Link></th>
+                <th>{brewery.city}</th>
+                <th>{brewery.phone}</th>
               </tr>
             );
           })}
