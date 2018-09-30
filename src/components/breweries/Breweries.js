@@ -9,12 +9,12 @@ class Breweries extends React.Component {
     super(props, context);
     this.state = {
       breweries: props.breweries,
-      filterName: "",
-      filterCity: ""
+      filter:{name:"",city:""}
     };
     this.filterBreweries = this.filterBreweries.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
     this.onCityChange = this.onCityChange.bind(this);
+    this.updateFilterState = this.updateFilterState.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -26,13 +26,13 @@ class Breweries extends React.Component {
   filterBreweries(){
     debugger;
     let bres = this.state.breweries;
-    if(this.state.filterName){
-      bres = bres.filter(x=>x.name.indexOf(this.state.filterName)!=-1)
+    if(this.state.filter.name){
+      bres = bres.filter(x=>x.name.indexOf(this.state.filter.name)!==-1)
     }
-    if(this.state.filterCity){
-      bres = bres.filter(x=>x.city.indexOf(this.state.filterCity)!=-1)
+    if(this.state.filter.city){
+      bres = bres.filter(x=>x.city.indexOf(this.state.filter.city)!==-1)
     }
-    if(!this.state.filterName && !this.state.filterCity){
+    if(!this.state.filter.name && !this.state.filter.city){
       bres = this.props.breweries;
     }
     this.setState({breweries: bres})
@@ -46,15 +46,23 @@ class Breweries extends React.Component {
     this.setState({filterCity: event.target.value});
   }
 
+  updateFilterState(event) {
+    const field = event.target.name;
+    let filter = this.state.filter;
+    filter[field] = event.target.value;
+    return this.setState({filter: filter});
+  }
+
 
   render() {
     return (
       <div>
         <h1>Breweries</h1>
-        <TextInput label="Name" onChange={this.onNameChange} name="Name" placeholder="Name"/>
-        <TextInput label="City" onChange={this.onCityChange} name="City" placeholder="City"/>
-
-        <input type="submit" value="Apply" onClick={this.filterBreweries} className="btn btn-primary"></input>
+        <div>
+          <TextInput label="Name" onChange={this.updateFilterState} name="name" placeholder="Name"/>
+          <TextInput label="City" onChange={this.updateFilterState} name="city" placeholder="City"/>
+          <input type="submit" value="Apply" onClick={this.filterBreweries} className="btn btn-primary"/>
+        </div>
         <hr/>
         <table className="table">
           <thead>

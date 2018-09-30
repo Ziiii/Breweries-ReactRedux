@@ -1,33 +1,86 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import BreweryForm from "../breweries/BreweryForm";
+import {browserHistory} from 'react-router';
 
 class BreweriesEdit extends React.Component {
   constructor(props, context) {
-    console.log(props);
+    debugger;
     super(props, context);
-    this.state = {brewery:props.brewery};
+    this.state = {
+      brewery: props.brewery,
+      saving: false,
+      errors: {name: "", city: "", phone: ""}
+    };
+    this.updateBreweryState = this.updateBreweryState.bind(this);
+    this.saveBrewery = this.saveBrewery.bind(this);
+    this.validateBrewery = this.validateBrewery.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.setState({brewery: Object.assign([],nextProps.brewery)});
+      debugger;
+      this.setState({
+        brewery: Object.assign({}, nextProps.brewery),
+        errors: Object.assign({}, this.state.errors)
+      });
     }
+  }
+
+  updateBreweryState(event) {
+    const field = event.target.name;
+    let brewery = this.state.brewery;
+    brewery[field] = event.target.value;
+    return this.setState({brewery: brewery});
+  }
+
+  saveBrewery() {
+    if (this.validateBrewery(this.state.brewery)) {
+      this.setState({saving: true});
+      this.setState({saving: false});
+      browserHistory.push("/");
+    }
+  }
+
+  validateBrewery(brewery) {
+    let errors = {name: "", city: "", phone: ""};
+    const error = "Filed is required";
+    let isValid = true;
+    if (!brewery.name) {
+      errors.name = error;
+      isValid = false;
+    }
+
+    if (!brewery.city) {
+      errors.city = error;
+      isValid = false;
+    }
+
+    if (!brewery.phone) {
+      errors.phone = error;
+      isValid = false;
+    }
+    this.setState({errors: errors});
+    return isValid;
   }
 
   render() {
     return (
-      <div>
-        <h1>Brew edit page</h1>
-        {this.state.brewery.name}
-      </div>
+      <BreweryForm
+        onChange={this.updateBreweryState}
+        onSave={this.saveBrewery}
+        brewery={this.state.brewery}
+        saving={this.state.saving}
+        errors={this.state.errors}
+      />
     );
   }
 }
 
 BreweriesEdit.propTypes = {
-  //my Props types
+  brewery: React.PropTypes.object.isRequired,
+  saving: React.PropTypes.bool.isRequired
 };
 
 function getBreweryById(breweries, id) {
@@ -40,17 +93,13 @@ function getBreweryById(breweries, id) {
 
 
 function mapStateToProps(state, ownProps) {
-  debugger;
   const brewId = ownProps.params.id;
-  console.log(ownProps);
-  console.log(brewId);
-  let brewery = {name: "test", number: "", city: ""};
+  let brewery = {name: "", number: "", city: ""};
   if (brewId && state.breweries.length > 0) {
     brewery = getBreweryById(state.breweries, brewId);
   }
-  console.log(brewery);
   return {
-    brewery:brewery
+    brewery: brewery
   };
 }
 
