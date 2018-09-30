@@ -13,7 +13,7 @@ const BreweryForm = ({brewery, onSave, onChange, saving, errors}) => {
         error={errors.name}/>
 
       <TextInput
-        name="City"
+        name="city"
         label="City"
         value={brewery.city}
         onChange={onChange}

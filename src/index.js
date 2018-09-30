@@ -13,7 +13,7 @@ import {loadBreweries,saveBrewery,deleteBrewery} from "./components/breweries/br
 
 const store = configureStore();
 store.dispatch(loadBreweries());
-//store.dispatch(saveBrewery());
+store.dispatch(saveBrewery());
 store.dispatch(deleteBrewery());
 
 render(

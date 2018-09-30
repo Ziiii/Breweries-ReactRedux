@@ -68,7 +68,8 @@ class Breweries extends React.Component {
         <div>
           <TextInput label="Name" onChange={this.updateFilterState} name="name" placeholder="Name"/>
           <TextInput label="City" onChange={this.updateFilterState} name="city" placeholder="City"/>
-          <input type="submit" value="Apply" onClick={this.filterBreweries} className="btn btn-primary"/>
+          <input type="button" value="Apply" onClick={this.filterBreweries} className="btn btn-primary"/>
+          <Link to={'/brewery/'} className="btn btn-primary btn-apply">Add</Link>
         </div>
         <hr/>
         <table className="table">
@@ -105,7 +106,8 @@ class Breweries extends React.Component {
 }
 
 Breweries.propTypes = {
-  breweries: PropTypes.array.isRequired
+  breweries: PropTypes.array.isRequired,
+  filter: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
