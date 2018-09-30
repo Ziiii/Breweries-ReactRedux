@@ -6,7 +6,6 @@ import {browserHistory} from 'react-router';
 
 class BreweriesEdit extends React.Component {
   constructor(props, context) {
-    debugger;
     super(props, context);
     this.state = {
       brewery: props.brewery,
@@ -20,7 +19,6 @@ class BreweriesEdit extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      debugger;
       this.setState({
         brewery: Object.assign({}, nextProps.brewery),
         errors: Object.assign({}, this.state.errors)

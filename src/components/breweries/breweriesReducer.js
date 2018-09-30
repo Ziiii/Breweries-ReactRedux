@@ -5,11 +5,10 @@ export default function breweriesReducer(state = [], action) {
     case types.LOAD_BREWERIES_SUCCESS:
       return action.breweries;
     case types.SAVE_BREWERIES_SUCCESS:
-      return [...state,Object.assign({},action.brewerie)];
+      return [...state,Object.assign({},action.brewery)];
     case types.DELETE_BREWERIES_SUCCESS:
       return [
-        ...state.filter(brewerie => brewerie.id !== action.brewerie.id),
-        Object.assign({},action.brewerie)
+        ...state.filter(brewery => brewery.id !== action.breweryId)
       ];
     default:
       return state;

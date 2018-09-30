@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import TextInput from '../common/TextInput';
 import {Link} from 'react-router';
+import * as breweryActions from "../breweries/breweriesActions";
 
 class Breweries extends React.Component {
   constructor(props, context) {
@@ -15,6 +16,7 @@ class Breweries extends React.Component {
     this.onNameChange = this.onNameChange.bind(this);
     this.onCityChange = this.onCityChange.bind(this);
     this.updateFilterState = this.updateFilterState.bind(this);
+    this.deleteBrew = this.deleteBrew.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,7 +26,6 @@ class Breweries extends React.Component {
   }
 
   filterBreweries(){
-    debugger;
     let bres = this.state.breweries;
     if(this.state.filter.name){
       bres = bres.filter(x=>x.name.indexOf(this.state.filter.name)!==-1)
@@ -53,6 +54,12 @@ class Breweries extends React.Component {
     return this.setState({filter: filter});
   }
 
+  deleteBrew(breweryId){
+    if(confirm("You sure?")){
+      this.props.actions.deleteBrewery(breweryId)
+    }
+  }
+
 
   render() {
     return (
@@ -79,6 +86,14 @@ class Breweries extends React.Component {
                 <th><Link to={'/brewery/'+brewery.id}>{brewery.name}</Link></th>
                 <th>{brewery.city}</th>
                 <th>{brewery.phone}</th>
+                <th>
+                  <input
+                    type="button"
+                    onClick={()=>this.deleteBrew(brewery.id)}
+                    value="Delete"
+                    className="btn btn-danger"
+                  />
+                </th>
               </tr>
             );
           })}
@@ -101,7 +116,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    //actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(breweryActions, dispatch)
   };
 }
 
