@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import TextInput from '../common/TextInput';
 
 
 class Breweries extends React.Component {
@@ -50,9 +51,12 @@ class Breweries extends React.Component {
     return (
       <div>
         <h1>Breweries</h1>
-        <input placeholder='name' onChange={this.onNameChange} value={this.state.filterName}></input>
-        <input placeholder='city' value={this.state.filterCity}></input>
-        <input type="submit" value="Apply" onClick={this.filterBreweries}></input>
+        {/*<input placeholder='name' onChange={this.onNameChange} value={this.state.filterName}></input>*/}
+        {/*<input placeholder='city' value={this.state.filterCity}></input>*/}
+        <TextInput label="Name" onChange={this.onNameChange} name="Name" placeholder="Name"/>
+        <TextInput label="City" onChange={this.onCityChange} name="City" placeholder="City"/>
+
+        <input type="submit" value="Apply" onClick={this.filterBreweries} className="btn btn-primary"></input>
         <hr/>
         <table className="table">
           <thead>
