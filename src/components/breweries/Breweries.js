@@ -7,8 +7,13 @@ class Breweries extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      breweries: props.breweries
+      breweries: props.breweries,
+      filterName: "",
+      filterCity: ""
     };
+    this.filterBreweries = this.filterBreweries.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onCityChange = this.onCityChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -17,10 +22,38 @@ class Breweries extends React.Component {
     }
   }
 
+  filterBreweries(){
+    debugger;
+    let bres = this.state.breweries;
+    if(this.state.filterName){
+      bres = bres.filter(x=>x.name.indexOf(this.state.filterName)!=-1)
+    }
+    if(this.state.filterCity){
+      bres = bres.filter(x=>x.city.indexOf(this.state.filterCity)!=-1)
+    }
+    if(!this.state.filterName && !this.state.filterCity){
+      bres = this.props.breweries;
+    }
+    this.setState({breweries: bres})
+  }
+
+  onNameChange(event){
+    this.setState({filterName: event.target.value});
+  }
+
+  onCityChange(event){
+    this.setState({filterCity: event.target.value});
+  }
+
+
   render() {
     return (
       <div>
         <h1>Breweries</h1>
+        <input placeholder='name' onChange={this.onNameChange} value={this.state.filterName}></input>
+        <input placeholder='city' value={this.state.filterCity}></input>
+        <input type="submit" value="Apply" onClick={this.filterBreweries}></input>
+        <hr/>
         <table className="table">
           <thead>
           <tr>
