@@ -26,17 +26,17 @@ export function loadBreweries(){
 export function saveBrewery(brewery){
   return (dispatch) =>{
     return breweriesApi.saveBrewery(brewery).then((brewery)=>{
-      dispatch(saveBrewerySuccess(brewery))
-    })
-  }
+      dispatch(saveBrewerySuccess(brewery));
+    });
+  };
 }
 
 export function deleteBrewery(breweryId){
   return (dispatch) =>{
     return breweriesApi.deleteBrewery(breweryId).then(()=>{
-      dispatch(deleteBrewerySuccess(breweryId))
-    })
-  }
+      dispatch(deleteBrewerySuccess(breweryId));
+    });
+  };
 }
 
 

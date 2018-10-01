@@ -29,15 +29,18 @@ class Breweries extends React.Component {
   filterBreweries(){
     let bres = this.state.breweries;
     if(this.state.filter.name){
-      bres = bres.filter(x=>x.name.indexOf(this.state.filter.name)!==-1)
+      bres = bres.filter(x=>x.name.toLowerCase().indexOf(this.state.filter.name.toLowerCase())!==-1);
     }
+
     if(this.state.filter.city){
-      bres = bres.filter(x=>x.city.indexOf(this.state.filter.city)!==-1)
+      bres = bres.filter(x=>x.city.toLowerCase().indexOf(this.state.filter.city.toLowerCase())!==-1);
     }
+
     if(!this.state.filter.name && !this.state.filter.city){
       bres = this.props.breweries;
     }
-    this.setState({breweries: bres})
+
+    this.setState({breweries: bres});
   }
 
   onNameChange(event){
@@ -57,7 +60,7 @@ class Breweries extends React.Component {
 
   deleteBrew(breweryId){
     if(confirm("You sure?")){
-      this.props.actions.deleteBrewery(breweryId)
+      this.props.actions.deleteBrewery(breweryId);
     }
   }
 
@@ -107,12 +110,14 @@ class Breweries extends React.Component {
 }
 
 Breweries.propTypes = {
-  breweries: PropTypes.array.isRequired
+  breweries: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     breweries: state.breweries
+
   };
 }
 

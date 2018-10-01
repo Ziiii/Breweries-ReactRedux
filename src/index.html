@@ -8,10 +8,9 @@
 <body>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
+    var breweries = [];
     const url = "https://api.openbrewerydb.org/breweries";
-    async function InitBrew(breweries) {
-      console.log("InitBrew");
-      debugger;
+    async function InitBrew() {
       let responce = await axios.get(url);
       breweries = responce.data;
       return breweries;

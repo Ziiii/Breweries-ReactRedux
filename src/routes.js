@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Breweries from './components/breweries/Breweries';
-import BreweriesEdit from './components/breweries/BreweriesEdit'
+import BreweriesEdit from './components/breweries/BreweriesEdit';
 
 
 class MainRoot extends React.Component {
@@ -18,7 +18,7 @@ class MainRoot extends React.Component {
           <Route path="/brewery/:id" component={BreweriesEdit}/>
         </div>
       </Router>
-    )
+    );
   }
 }
 

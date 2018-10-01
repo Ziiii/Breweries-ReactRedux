@@ -1,11 +1,11 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const url = "https://api.openbrewerydb.org/breweries";
-var breweries = [];
 
+/*eslint-disable */
 class BreweriesApi {
   static getBreweries() {
-    return InitBrew(breweries);
+    return InitBrew();
   }
 
   static saveBrewery(brewery) {
@@ -15,10 +15,11 @@ class BreweriesApi {
         if (!brewery.id) {
           brewery.id = this.generateId();
         }
-        debugger;
+
         breweries.push(brewery);
         resolve(brewery);
       }
+
       resolve(brewery);
     });
   }
@@ -33,13 +34,14 @@ class BreweriesApi {
   }
 
   static generateId() {
-    debugger;
     let max = breweries.map(item => item.id).reduce((a, b) => {
       if (a > b) {
         return a;
       }
-      return b
+
+      return b;
     });
+
     return max + 1;
   }
 
@@ -47,6 +49,6 @@ class BreweriesApi {
 
   }
 }
-
+/*eslint-enable */
 
 export default BreweriesApi;

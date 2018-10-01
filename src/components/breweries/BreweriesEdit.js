@@ -39,7 +39,7 @@ class BreweriesEdit extends React.Component {
       this.setState({saving: true});
       this.props.actions.saveBrewery(this.state.brewery);
       this.setState({saving: false});
-      this.props.history.push("/")
+      this.props.history.push("/");
     }
   }
 
@@ -93,9 +93,7 @@ function getBreweryById(breweries, id) {
 
 
 function mapStateToProps(state, ownProps) {
-  debugger;
   const brewId = ownProps.match.params.id;
-  debugger;
   let brewery = {name: "", phone: "", city: ""};
   if (brewId && state.breweries.length > 0) {
     brewery = getBreweryById(state.breweries, brewId);
