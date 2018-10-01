@@ -1,9 +1,10 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import TextInput from '../common/TextInput';
 import {Link} from 'react-router';
 import * as breweryActions from "../breweries/breweriesActions";
+import PropTypes from 'prop-types';
 
 class Breweries extends React.Component {
   constructor(props, context) {

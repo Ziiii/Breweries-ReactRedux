@@ -1,5 +1,6 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
+import PropTypes from 'prop-types';
 
 const BreweryForm = ({brewery, onSave, onChange, saving, errors}) => {
   return (
@@ -37,11 +38,11 @@ const BreweryForm = ({brewery, onSave, onChange, saving, errors}) => {
 };
 
 BreweryForm.propTypes = {
-  brewery: React.PropTypes.object.isRequired,
-  onSave: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  errors: React.PropTypes.object.isRequired,
-  saving: React.PropTypes.bool
+  brewery: PropTypes.object.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+  saving: PropTypes.bool
 };
 
 export default BreweryForm;

@@ -1,7 +1,6 @@
-import React ,{PropTypes} from 'react';
-import Header from "./common/Header";
+import React from 'react';
 import {connect} from 'react-redux';
-import Breweries from '../components/breweries/Breweries';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
   render() {

@@ -1,9 +1,10 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import BreweryForm from "../breweries/BreweryForm";
 import {browserHistory} from 'react-router';
 import * as breweryActions from "../breweries/breweriesActions";
+import PropTypes from 'prop-types';
 
 class BreweriesEdit extends React.Component {
   constructor(props, context) {
@@ -79,8 +80,8 @@ class BreweriesEdit extends React.Component {
 }
 
 BreweriesEdit.propTypes = {
-  brewery: React.PropTypes.object.isRequired,
-  saving: React.PropTypes.bool.isRequired
+  brewery: PropTypes.object.isRequired,
+  saving: PropTypes.bool.isRequired
 };
 
 function getBreweryById(breweries, id) {

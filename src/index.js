@@ -1,8 +1,8 @@
 import 'babel-polyfill';
 import React from 'react';
 import {render} from 'react-dom';
-import {Router, browserHistory} from 'react-router';
-import routes from './routes';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import MainRoot from './routes';
 import './styles/styles.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import configureStore from './store/configureStore';
@@ -18,7 +18,8 @@ store.dispatch(deleteBrewery());
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes}/>
+    <MainRoot/>
   </Provider>,
   document.getElementById('app')
 );
+{/*<Router routes={routes}/>*/}
