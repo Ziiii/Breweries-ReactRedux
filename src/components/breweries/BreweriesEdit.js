@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import BreweryForm from "../breweries/BreweryForm";
-import {browserHistory} from 'react-router';
 import * as breweryActions from "../breweries/breweriesActions";
 import PropTypes from 'prop-types';
 
@@ -40,7 +39,7 @@ class BreweriesEdit extends React.Component {
       this.setState({saving: true});
       this.props.actions.saveBrewery(this.state.brewery);
       this.setState({saving: false});
-      browserHistory.push("/");
+      this.props.history.push("/")
     }
   }
 
@@ -94,7 +93,8 @@ function getBreweryById(breweries, id) {
 
 
 function mapStateToProps(state, ownProps) {
-  const brewId = ownProps.params.id;
+  debugger;
+  const brewId = ownProps.match.params.id;
   debugger;
   let brewery = {name: "", phone: "", city: ""};
   if (brewId && state.breweries.length > 0) {

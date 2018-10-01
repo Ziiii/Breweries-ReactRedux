@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import TextInput from '../common/TextInput';
-import {Link} from 'react-router';
+import {Link} from "react-router-dom";
 import * as breweryActions from "../breweries/breweriesActions";
 import PropTypes from 'prop-types';
 
@@ -107,8 +107,7 @@ class Breweries extends React.Component {
 }
 
 Breweries.propTypes = {
-  breweries: PropTypes.array.isRequired,
-  filter: PropTypes.object.isRequired
+  breweries: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
