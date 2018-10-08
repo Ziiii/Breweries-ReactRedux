@@ -3,7 +3,7 @@ import * as types from "../../actions/actionTypes";
 export default function breweriesReducer(state = [], action) {
   switch (action.type) {
     case types.LOAD_BREWERIES_SUCCESS:
-      return action.breweries;
+      return Object.assign([],action.breweries);
     case types.SAVE_BREWERIES_SUCCESS:
       if(!action.brewery){
         return state;
