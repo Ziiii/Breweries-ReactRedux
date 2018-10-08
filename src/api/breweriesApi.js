@@ -2,6 +2,11 @@ import axios from 'axios';
 
 const url = "https://api.openbrewerydb.org/breweries";
 
+async function TestLog(){
+  console.log("Write me");
+}
+TestLog();
+
 /*eslint-disable */
 class BreweriesApi {
   static getBreweries() {
