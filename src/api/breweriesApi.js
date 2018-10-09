@@ -3,11 +3,12 @@ import axios from 'axios';
 var url = "https://api.openbrewerydb.org/breweries";
 
 var breweries = [];
+
 /*eslint-disable */
 class BreweriesApi {
   static async getBreweries() {
-    if(breweries.length){
-      return breweries
+    if (breweries.length) {
+      return breweries;
     }
     else {
       breweries = (await axios.get(url)).data;
@@ -17,23 +18,29 @@ class BreweriesApi {
 
   static saveBrewery(brewery) {
     return new Promise((resolve, reject) => {
-      this.checkBrewerieLoading();
       if (brewery) {
         if (!brewery.id) {
           brewery.id = this.generateId();
         }
-
         breweries.push(brewery);
-        resolve(brewery);
       }
-
       resolve(brewery);
+    });
+  }
+
+  static updateBrewery(brewery) {
+    return new Promise((resolve, reject) => {
+      if (brewery) {
+        const indx = breweries.findIndex(x => x.id === brewery.id);
+        breweries.splice(indx, 1);
+        breweries.push(brewery);
+        resolve(breweries);
+      }
     });
   }
 
   static deleteBrewery(breweryId) {
     return new Promise((resolve, reject) => {
-      this.checkBrewerieLoading();
       const indexOfBrewerie = breweries.findIndex(item => item.id === breweryId);
       breweries.splice(indexOfBrewerie, 1);
       resolve(breweryId);
@@ -51,11 +58,8 @@ class BreweriesApi {
 
     return max + 1;
   }
-
-  static checkBrewerieLoading() {
-
-  }
 }
+
 /*eslint-enable */
 
 export default BreweriesApi;

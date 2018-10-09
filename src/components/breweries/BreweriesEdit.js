@@ -14,7 +14,7 @@ class BreweriesEdit extends React.Component {
       errors: {name: "", city: "", phone: ""}
     };
     this.updateBreweryState = this.updateBreweryState.bind(this);
-    this.saveBrewery = this.saveBrewery.bind(this);
+    this.saveOrUpdateBrewery = this.saveOrUpdateBrewery.bind(this);
     this.validateBrewery = this.validateBrewery.bind(this);
   }
 
@@ -34,10 +34,15 @@ class BreweriesEdit extends React.Component {
     return this.setState({brewery: brewery});
   }
 
-  saveBrewery() {
+  saveOrUpdateBrewery() {
     if (this.validateBrewery(this.state.brewery)) {
       this.setState({saving: true});
-      this.props.actions.saveBrewery(this.state.brewery);
+      if(this.state.brewery.id){
+          this.props.actions.updateBrewery(this.state.brewery);
+      }
+      else{
+        this.props.actions.saveBrewery(this.state.brewery);
+      }
       this.setState({saving: false});
       this.props.history.push("/");
     }
@@ -69,7 +74,7 @@ class BreweriesEdit extends React.Component {
     return (
       <BreweryForm
         onChange={this.updateBreweryState}
-        onSave={this.saveBrewery}
+        onSave={this.saveOrUpdateBrewery}
         brewery={this.state.brewery}
         saving={this.state.saving}
         errors={this.state.errors}
