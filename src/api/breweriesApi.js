@@ -16,35 +16,31 @@ class BreweriesApi {
     }
   }
 
-  static saveBrewery(brewery) {
-    return new Promise((resolve, reject) => {
+  static async saveBrewery(brewery) {
       if (brewery) {
         if (!brewery.id) {
           brewery.id = this.generateId();
         }
+
         breweries.push(brewery);
       }
-      resolve(brewery);
-    });
+
+      return brewery;
   }
 
-  static updateBrewery(brewery) {
-    return new Promise((resolve, reject) => {
-      if (brewery) {
-        const indx = breweries.findIndex(x => x.id === brewery.id);
-        breweries.splice(indx, 1);
-        breweries.push(brewery);
-        resolve(breweries);
-      }
-    });
+  static async updateBrewery(brewery) {
+    if (brewery) {
+      const indx = breweries.findIndex(x => x.id === brewery.id);
+      breweries.splice(indx, 1);
+      breweries.push(brewery);
+      return breweries;
+    }
   }
 
-  static deleteBrewery(breweryId) {
-    return new Promise((resolve, reject) => {
-      const indexOfBrewerie = breweries.findIndex(item => item.id === breweryId);
-      breweries.splice(indexOfBrewerie, 1);
-      resolve(breweryId);
-    });
+  static async deleteBrewery(breweryId) {
+    const indexOfBrewerie = breweries.findIndex(item => item.id === breweryId);
+    breweries.splice(indexOfBrewerie, 1);
+    return breweryId;
   }
 
   static generateId() {
@@ -59,7 +55,6 @@ class BreweriesApi {
     return max + 1;
   }
 }
-
 /*eslint-enable */
 
 export default BreweriesApi;

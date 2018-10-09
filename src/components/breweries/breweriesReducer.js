@@ -10,7 +10,6 @@ export default function breweriesReducer(state = [], action) {
       }
       return [...state,Object.assign({},action.brewery)];
     case types.UPDATE_BREWERIES_SUCCESS:
-      console.log(action);
       return Object.assign([],action.breweries);
     case types.DELETE_BREWERIES_SUCCESS:
       return [
