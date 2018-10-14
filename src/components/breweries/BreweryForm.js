@@ -22,7 +22,7 @@ const BreweryForm = ({brewery, onSave, onChange, saving, errors}) => {
 
       <TextInput
         name="phone"
-        label="phone"
+        label="Phone"
         value={brewery.phone}
         onChange={onChange}
         error={errors.phone}/>

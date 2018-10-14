@@ -1,38 +1,37 @@
 import React from 'react';
-import expect from 'expect';
-import {render} from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
-import TestForm from "./TestRender";
+import {expect} from 'chai';
 import BreweryForm from "./BreweryForm";
-import Enzyme,{shallow} from 'enzyme';
+import Enzyme,{shallow,render,mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import sinon from 'sinon';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("Breweries Tests", () => {
-  it("should pass", () => {
-    expect(true).toEqual(true);
+  let props;
+  beforeEach(() => {
+    props  = {
+      brewery:{name:"MyName",city:"MyCity",phone:"MyPhone"},
+      onSave:sinon.spy(),
+      onChange:()=>{},
+      saving:false,
+      errors:{name:"",city:"",phone:""}
+    };
   });
 
-  it("Brewery Form test", ()=>{
-      const props  = {
-        brewery:{name:"TestName",city:"TestCity",phone:"TestPhone"},
-        onSave:()=>{console.log("Save")},
-        onChange:()=>{console.log("Save")},
-        saving:false,
-        errors:{name:"",city:"",phone:""}
-      };
-      const div = document.createElement('div');
-      render(<BreweryForm {...props}/>,div);
+  it("should pass", () => {
+    expect(true).to.equal(true);
+  });
+
+  it("Brewery Form static text", ()=>{
+    const component = render (<BreweryForm {...props}/>);
+    expect(component.text()).to.equal("Manage BreweryNameCityPhone");
   });
 
   it("Enzyme test",()=>{
-    //const component = shallow(<TestForm/>);
-    expect(true).toEqual(true);
+    const component = mount(<BreweryForm {...props}/>);
+    component.find("input").last().simulate("click");
+    expect(props.onSave.calledOnce).to.be.true;
   })
 
-  // it("Brewery Form test", () => {
-
-  //   const breweryForm = shallow(<BreweryForm />);
-  // });
 });
