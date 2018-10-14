@@ -1,6 +1,6 @@
 import expect from 'expect';
-import { shallow } from 'enzyme';
-import BreweryForm from '../breweries/BreweryForm';
+// import { shallow } from 'enzyme';
+// import BreweryForm from '../breweries/BreweryForm';
 
 describe("Breweries Tests", () => {
   it("should pass", () => {
