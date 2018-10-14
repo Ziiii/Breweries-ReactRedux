@@ -4,6 +4,8 @@ import {bindActionCreators} from 'redux';
 import BreweryForm from "../breweries/BreweryForm";
 import * as breweryActions from "../breweries/breweriesActions";
 import PropTypes from 'prop-types';
+import ValidationService from "../../tools/ValidationService";
+
 
 class BreweriesEdit extends React.Component {
   constructor(props, context) {
@@ -15,7 +17,6 @@ class BreweriesEdit extends React.Component {
     };
     this.updateBreweryState = this.updateBreweryState.bind(this);
     this.saveOrUpdateBrewery = this.saveOrUpdateBrewery.bind(this);
-    this.validateBrewery = this.validateBrewery.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,7 +36,10 @@ class BreweriesEdit extends React.Component {
   }
 
   saveOrUpdateBrewery() {
-    if (this.validateBrewery(this.state.brewery)) {
+    let isValid;
+    let errors;
+    [isValid,errors] = ValidationService.validateBrewery(this.state.brewery);
+    if (isValid) {
       this.setState({saving: true});
       if(this.state.brewery.id){
           this.props.actions.updateBrewery(this.state.brewery);
@@ -46,28 +50,9 @@ class BreweriesEdit extends React.Component {
       this.setState({saving: false});
       this.props.history.push("/");
     }
-  }
-
-  validateBrewery(brewery) {
-    let errors = {name: "", city: "", phone: ""};
-    const error = "Filed is required";
-    let isValid = true;
-    if (!brewery.name) {
-      errors.name = error;
-      isValid = false;
+    else{
+      this.setState({errors: errors});
     }
-
-    if (!brewery.city) {
-      errors.city = error;
-      isValid = false;
-    }
-
-    if (!brewery.phone) {
-      errors.phone = error;
-      isValid = false;
-    }
-    this.setState({errors: errors});
-    return isValid;
   }
 
   render() {
@@ -89,7 +74,7 @@ BreweriesEdit.propTypes = {
 };
 
 function getBreweryById(breweries, id) {
-  const brewery = breweries.filter(brewery => brewery.id == id);
+  const brewery = breweries.filter(brewery => brewery.id === id);
   if (brewery) {
     return brewery[0];
   }

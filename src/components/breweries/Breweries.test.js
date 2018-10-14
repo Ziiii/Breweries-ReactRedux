@@ -1,7 +1,7 @@
 import React from 'react';
 import {expect} from 'chai';
 import BreweryForm from "./BreweryForm";
-import Enzyme,{shallow,render,mount} from 'enzyme';
+import Enzyme,{render,mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
 
