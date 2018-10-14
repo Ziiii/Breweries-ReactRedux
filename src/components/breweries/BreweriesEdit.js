@@ -42,10 +42,10 @@ class BreweriesEdit extends React.Component {
     if (isValid) {
       this.setState({saving: true});
       if(this.state.brewery.id){
-          this.props.actions.updateBrewery(this.state.brewery);
+          this.props.updateBrewery(this.state.brewery);
       }
       else{
-        this.props.actions.saveBrewery(this.state.brewery);
+        this.props.saveBrewery(this.state.brewery);
       }
       this.setState({saving: false});
       this.props.history.push("/");
@@ -94,9 +94,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
+
   return {
-    actions: bindActionCreators(breweryActions, dispatch)
-  };
+    updateBrewery:breweryActions.updateBrewery,
+    saveBrewery:breweryActions.saveBrewery
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BreweriesEdit);
