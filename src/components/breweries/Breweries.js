@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import TextInput from '../common/TextInput';
 import {Link} from "react-router-dom";
-import * as breweryActions from "../breweries/breweriesActions";
+import {loadFilteredBreweries,deleteBrewery} from "../breweries/breweriesActions";
 import PropTypes from 'prop-types';
 
 class Breweries extends React.Component {
@@ -26,27 +25,10 @@ class Breweries extends React.Component {
     }
   }
 
-  // filterBreweries(){
-  //   let bres = this.state.breweries;
-  //   if(this.state.filter.name){
-  //     bres = bres.filter(x=>x.name.toLowerCase().indexOf(this.state.filter.name.toLowerCase())!==-1);
-  //   }
-  //
-  //   if(this.state.filter.city){
-  //     bres = bres.filter(x=>x.city.toLowerCase().indexOf(this.state.filter.city.toLowerCase())!==-1);
-  //   }
-  //
-  //   if(!this.state.filter.name && !this.state.filter.city){
-  //     bres = this.props.breweries;
-  //   }
-  //
-  //   this.setState({breweries: bres});
-  // }
-
   filterBreweries() {
     let name = this.state.filter.name;
     let city = this.state.filter.city;
-    this.props.actions.loadFilteredBreweries(name,city);
+    this.props.loadFilteredBreweries(name,city);
   }
 
   onNameChange(event) {
@@ -66,10 +48,9 @@ class Breweries extends React.Component {
 
   deleteBrew(breweryId) {
     if (confirm("You sure?")) {
-      this.props.actions.deleteBrewery(breweryId);
+      this.props.deleteBrewery(breweryId);
     }
   }
-
 
   render() {
     return (
@@ -129,8 +110,9 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(breweryActions, dispatch)
-  };
+    loadFilteredBreweries: (name,city) => {dispatch(loadFilteredBreweries(name,city))},
+    deleteBrewery: (breweryId) => {dispatch(deleteBrewery(breweryId))}
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Breweries);
