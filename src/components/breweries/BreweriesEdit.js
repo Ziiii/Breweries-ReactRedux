@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import BreweryForm from "../breweries/BreweryForm";
-import * as breweryActions from "../breweries/breweriesActions";
+import {updateBrewery,saveBrewery} from "../breweries/breweriesActions";
 import PropTypes from 'prop-types';
 import ValidationService from "../../tools/ValidationService";
 
@@ -10,6 +10,7 @@ import ValidationService from "../../tools/ValidationService";
 class BreweriesEdit extends React.Component {
   constructor(props, context) {
     super(props, context);
+    console.log(props);
     this.state = {
       brewery: props.brewery,
       saving: false,
@@ -42,7 +43,7 @@ class BreweriesEdit extends React.Component {
     if (isValid) {
       this.setState({saving: true});
       if(this.state.brewery.id){
-          this.props.updateBrewery(this.state.brewery);
+        this.props.updateBrewery(this.state.brewery);
       }
       else{
         this.props.saveBrewery(this.state.brewery);
@@ -70,7 +71,9 @@ class BreweriesEdit extends React.Component {
 
 BreweriesEdit.propTypes = {
   brewery: PropTypes.object.isRequired,
-  saving: PropTypes.bool.isRequired
+  saving: PropTypes.bool.isRequired,
+  updateBrewery:PropTypes.func.isRequired,
+  saveBrewery:PropTypes.func.isRequired
 };
 
 function getBreweryById(breweries, id) {
@@ -80,7 +83,6 @@ function getBreweryById(breweries, id) {
   }
   return null;
 }
-
 
 function mapStateToProps(state, ownProps) {
   const brewId = ownProps.match.params.id;
@@ -94,10 +96,9 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-
   return {
-    updateBrewery:breweryActions.updateBrewery,
-    saveBrewery:breweryActions.saveBrewery
+    updateBrewery:(brew) => {dispatch(updateBrewery(brew))},
+    saveBrewery:(brew) => {dispatch(saveBrewery(brew))}
   }
 }
 

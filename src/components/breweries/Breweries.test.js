@@ -28,10 +28,9 @@ describe("Breweries Tests", () => {
     expect(component.text()).to.equal("Manage BreweryNameCityPhone");
   });
 
-  it("Enzyme test",()=>{
+  it("Brewery Form save click",()=>{
     const component = mount(<BreweryForm {...props}/>);
     component.find("input").last().simulate("click");
     expect(props.onSave.calledOnce).to.be.true;
   })
-
 });
