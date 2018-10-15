@@ -90,6 +90,7 @@ function mapStateToProps(state, ownProps) {
   if (brewId && state.breweries.length > 0) {
     brewery = getBreweryById(state.breweries, brewId);
   }
+
   return {
     brewery: brewery
   };

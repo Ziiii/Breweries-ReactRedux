@@ -11,7 +11,7 @@ class Breweries extends React.Component {
     super(props, context);
     this.state = {
       breweries: props.breweries,
-      filter:{name:"",city:""}
+      filter: {name: "", city: ""}
     };
     this.filterBreweries = this.filterBreweries.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
@@ -22,32 +22,38 @@ class Breweries extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.setState({breweries: Object.assign([],nextProps.breweries)});
+      this.setState({breweries: Object.assign([], nextProps.breweries)});
     }
   }
 
-  filterBreweries(){
-    let bres = this.state.breweries;
-    if(this.state.filter.name){
-      bres = bres.filter(x=>x.name.toLowerCase().indexOf(this.state.filter.name.toLowerCase())!==-1);
-    }
+  // filterBreweries(){
+  //   let bres = this.state.breweries;
+  //   if(this.state.filter.name){
+  //     bres = bres.filter(x=>x.name.toLowerCase().indexOf(this.state.filter.name.toLowerCase())!==-1);
+  //   }
+  //
+  //   if(this.state.filter.city){
+  //     bres = bres.filter(x=>x.city.toLowerCase().indexOf(this.state.filter.city.toLowerCase())!==-1);
+  //   }
+  //
+  //   if(!this.state.filter.name && !this.state.filter.city){
+  //     bres = this.props.breweries;
+  //   }
+  //
+  //   this.setState({breweries: bres});
+  // }
 
-    if(this.state.filter.city){
-      bres = bres.filter(x=>x.city.toLowerCase().indexOf(this.state.filter.city.toLowerCase())!==-1);
-    }
-
-    if(!this.state.filter.name && !this.state.filter.city){
-      bres = this.props.breweries;
-    }
-
-    this.setState({breweries: bres});
+  filterBreweries() {
+    let name = this.state.filter.name;
+    let city = this.state.filter.city;
+    this.props.actions.loadFilteredBreweries(name,city);
   }
 
-  onNameChange(event){
+  onNameChange(event) {
     this.setState({filterName: event.target.value});
   }
 
-  onCityChange(event){
+  onCityChange(event) {
     this.setState({filterCity: event.target.value});
   }
 
@@ -58,8 +64,8 @@ class Breweries extends React.Component {
     return this.setState({filter: filter});
   }
 
-  deleteBrew(breweryId){
-    if(confirm("You sure?")){
+  deleteBrew(breweryId) {
+    if (confirm("You sure?")) {
       this.props.actions.deleteBrewery(breweryId);
     }
   }
@@ -88,13 +94,13 @@ class Breweries extends React.Component {
           {this.state.breweries.map((brewery) => {
             return (
               <tr>
-                <th><Link to={'/brewery/'+brewery.id}>{brewery.name}</Link></th>
+                <th><Link to={'/brewery/' + brewery.id}>{brewery.name}</Link></th>
                 <th>{brewery.city}</th>
                 <th>{brewery.phone}</th>
                 <th>
                   <input
                     type="button"
-                    onClick={()=>this.deleteBrew(brewery.id)}
+                    onClick={() => this.deleteBrew(brewery.id)}
                     value="Delete"
                     className="btn btn-danger"
                   />

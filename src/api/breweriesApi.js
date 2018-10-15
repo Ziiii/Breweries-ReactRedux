@@ -1,6 +1,24 @@
 import axios from 'axios';
 
-var url = "https://api.openbrewerydb.org/breweries";
+
+
+function getUrl(name,city){
+  let url = "https://api.openbrewerydb.org/breweries";
+  let params = [];
+  if(name){
+    params.push("by_name="+name);
+  }
+
+  if(city){
+    params.push("by_city="+city);
+  }
+
+  if(params.length>0){
+    url = `${url}?${params.join("&")}`
+  }
+
+  return url
+}
 
 var breweries = [];
 
@@ -11,21 +29,28 @@ class BreweriesApi {
       return breweries;
     }
     else {
+      let url = getUrl(null,null);
       breweries = (await axios.get(url)).data;
       return breweries;
     }
   }
 
-  static async saveBrewery(brewery) {
-      if (brewery) {
-        if (!brewery.id) {
-          brewery.id = this.generateId();
-        }
+  static async getFilteredBreweries(name,city){
+    let url = getUrl(name,city);
+    breweries = (await axios.get(url)).data;
+    return breweries;
+  }
 
-        breweries.push(brewery);
+  static async saveBrewery(brewery) {
+    if (brewery) {
+      if (!brewery.id) {
+        brewery.id = this.generateId();
       }
 
-      return brewery;
+      breweries.push(brewery);
+    }
+
+    return brewery;
   }
 
   static async updateBrewery(brewery) {

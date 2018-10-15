@@ -17,6 +17,9 @@ export function updateBrewerySuccess(breweries){
   return {type: types.UPDATE_BREWERIES_SUCCESS,breweries};
 }
 
+export function loadFilteredBreweriesSuccess(breweries) {
+  return {type: types.LOAD_FILTERED_BREWERIES_SUCCESS,breweries}
+}
 
 export function loadBreweries() {
   return (dispatch) => {
@@ -26,6 +29,13 @@ export function loadBreweries() {
   };
 }
 
+export function loadFilteredBreweries(name,city) {
+  return (dispatch) => {
+    return breweriesApi.getFilteredBreweries(name,city).then(breweries => {
+      dispatch(loadFilteredBreweriesSuccess(breweries));
+    });
+  };
+}
 
 export function saveBrewery(brewery) {
   return (dispatch) => {
@@ -50,6 +60,3 @@ export function updateBrewery(brewery) {
     })
   };
 }
-
-
-

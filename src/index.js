@@ -8,13 +8,14 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import configureStore from './store/configureStore';
 import {Provider} from 'react-redux';
 import '../node_modules/toastr/build/toastr.min.css';
-import {loadBreweries,saveBrewery,deleteBrewery} from "./components/breweries/breweriesActions";
+import {loadBreweries,loadFilteredBreweries,saveBrewery,deleteBrewery} from "./components/breweries/breweriesActions";
 
 
 const store = configureStore();
 store.dispatch(loadBreweries());
 store.dispatch(saveBrewery());
 store.dispatch(deleteBrewery());
+store.dispatch(loadFilteredBreweries());
 
 render(
   <Provider store={store}>
