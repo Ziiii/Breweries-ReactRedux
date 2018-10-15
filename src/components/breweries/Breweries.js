@@ -98,7 +98,8 @@ class Breweries extends React.Component {
 
 Breweries.propTypes = {
   breweries: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  loadFilteredBreweries: PropTypes.func.isRr,
+  deleteBrewery: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
