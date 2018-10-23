@@ -1,10 +1,25 @@
 import React from 'react';
-import {Route,IndexRoute} from 'react-router';
-import App from './components/App';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Breweries from './components/breweries/Breweries';
+import BreweriesEdit from './components/breweries/BreweriesEdit';
 
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute path="breweries" component={Breweries}/>
-  </Route>
-);
+
+class MainRoot extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  render(){
+    return (
+      <Router>
+        <div className="container-fluid">
+          <Route exact path="/" component={Breweries}/>
+          <Route exact path="/brewery" component={BreweriesEdit}/>
+          <Route path="/brewery/:id" component={BreweriesEdit}/>
+        </div>
+      </Router>
+    );
+  }
+}
+
+export default MainRoot;
