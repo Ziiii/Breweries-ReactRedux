@@ -77,10 +77,12 @@ BreweriesEdit.propTypes = {
 };
 
 function getBreweryById(breweries, id) {
-  const brewery = breweries.filter(brewery => brewery.id === id);
-  if (brewery) {
-    return brewery[0];
+  for(let i = 0; i < breweries.length; i++){
+      if(breweries[i].id == id){
+         return breweries[i];
+      }
   }
+  
   return null;
 }
 
